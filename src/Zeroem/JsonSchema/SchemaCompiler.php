@@ -25,8 +25,9 @@ class SchemaCompiler
 
         if(property_exists($schema, 'type')) {
 
-            // what do we do if the requested type doesn't exist?
-            $constraint->addConstraint($this->typeFactory->getType($schema->type));
+            // what do we do if a custom type doesn't exist?
+            $constraint->addConstraint($this->getTypeConstraint($schema->type));
+
 
             if(property_exists($schema, 'properties')) {
                 foreach($schema->properties as $name=>$childSchema) {
@@ -77,5 +78,18 @@ class SchemaCompiler
         }
 
         return null;
+    }
+
+    private function getTypeConstraint($type) {
+        if(is_array($schema->type)) {
+            $union = new UnionType;
+            foreach($schema->type as $type) {
+                $union->addType($type);
+            }
+
+            return $union;
+        } else {        
+            return $this->typeFactory->getType($schema->type);
+        }
     }
 }
