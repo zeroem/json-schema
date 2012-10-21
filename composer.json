@@ -1,0 +1,16 @@
+{
+    "name": "zeroem/json-schema",
+    "description": "PHP Implementation of JSON Schema",
+    "require-dev": {
+        "phpunit/phpunit": "3.7.8"
+    },
+    "authors": [
+        {
+            "name": "Darrell Hamilton",
+            "email": "darrell.noice@gmail.com"
+        }
+    ],
+    "require": {
+
+    }
+}
