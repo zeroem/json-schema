@@ -13,6 +13,8 @@ class PropertyConstraint extends CompositeConstraint
     }
 
     public function checkConstraint($data) {
+        assert(is_object($data));
+
         if(property_exists($data, $this->name)) {
             return parent::checkConstraint($data->{$this->name});
         } else {
