@@ -9,7 +9,7 @@ class TypeFactoryInterface
      *
      * @param string $key type key
      *
-     * @return ConstraintInterface 
+     * @return ConstraintInterface|null returns null if the key does not map to any type
      */ 
     public function getType($key);
 }
