@@ -3,20 +3,19 @@
 namespace Zeroem\JsonSchema;
 
 use Zeroem\JsonSchema\Exception\InvalidSchemaException;
-use Zeroem\JsonSchema\Constraint\Type\TypeFactoryInterface;
+use Zeroem\JsonSchema\Constraint\Type\Resolver\TypeResolverInterface;
 use Zeroem\JsonSchema\Resolver\SchemaResolverInterface;
 use Zeroem\JsonSchema\Constraint\CompositeConstraint;
 use Zeroem\JsonSchema\Constraint\PropertyConstraint;
 use Zeroem\JsonSchema\Constraint\PatternPropertyConstraint;
 
-
 class SchemaCompiler
 {
-    private $typeFactory;
+    private $typeResolver;
     private $schemaResolver;
 
-    public function __construct(TypeFactoryInterface $typeFactory, SchemaResolverInterface $schemaResolve=null) {
-        $this->typeFactory = $typeFactory;
+    public function __construct(TypeResolverInterface $typeResolver, SchemaResolverInterface $schemaResolver=null) {
+        $this->typeResolver = $typeFactory;
         $this->schemaResolver = $schemaResolver;
     }
 
@@ -28,7 +27,6 @@ class SchemaCompiler
             // what do we do if a custom type doesn't exist?
             $constraint->addConstraint($this->getTypeConstraint($schema->type));
 
-
             if(property_exists($schema, 'properties')) {
                 foreach($schema->properties as $name=>$childSchema) {
                     if ( isset($childSchema->required) ) {
@@ -38,9 +36,7 @@ class SchemaCompiler
                     }
 
                     $propertyConstraint = new PropertyConstraint($name, $required);
-
-                    $this->addSchemaConstraint($propertyConstraint, $schema);
-
+                    $propertyConstraint->addConstraint($this->getSchema($childSchema));
                     $this->constraint->addConstraint($propertyConstraint);
                 }
             }
@@ -48,7 +44,7 @@ class SchemaCompiler
             if(property_exists($schema, 'patternProperties')) {
                 foreach($schema->patternProperties as $pattern=>$childSchema) {
                     $patternConstraint = new PatternPropertyConstraint($pattern);
-                    $this->addSchemaConstraint($patternConstraint, $schema);
+                    $patternConstraint->addConstraint($this->getSchema($childSchema));
 
                     $this->constraint->addConstraint($patternConstraint);
                 }
@@ -58,38 +54,9 @@ class SchemaCompiler
         }
     }
 
-    private function addSchemaConstraint(CompositeConstraint $constraint, $schema) {
-        $schema = $this->getSchema($schema);
-
-        if(null !== $schema) {
-            $constraint->addConstraint($schema);
-        }
-
-        return $constraint;
-    }
-
     private function getSchema($schema) {
-        if(is_object($schema)) {
-            return $schema;
-        } else {
-            if(isset($this->schemaResolver)) {
-                return $this->schemaResolver->resolve($schema);
-            }
-        }
-
-        return null;
-    }
-
-    private function getTypeConstraint($type) {
-        if(is_array($schema->type)) {
-            $union = new UnionType;
-            foreach($schema->type as $type) {
-                $union->addType($type);
-            }
-
-            return $union;
-        } else {        
-            return $this->typeFactory->getType($schema->type);
-        }
+        return $this->compile(
+            $this->schemaResolver->resolveSchema($schema)
+        );
     }
 }

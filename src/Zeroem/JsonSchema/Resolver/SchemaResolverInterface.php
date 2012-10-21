@@ -11,5 +11,5 @@ interface SchemaResolverInterface
      *
      * @return object
      */
-    public function resolve($schema);
+    public function resolveSchema($schema);
 }
