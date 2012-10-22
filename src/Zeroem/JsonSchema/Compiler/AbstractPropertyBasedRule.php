@@ -2,6 +2,8 @@
 
 namespace Zeroem\JsonSchema\Compiler;
 
+use Zeroem\JsonSchema\Compiler\CompilerInterface;
+
 abstract class AbstractPropertyBasedRule implements CompilerRuleInterface
 {
     private $propertyName;
