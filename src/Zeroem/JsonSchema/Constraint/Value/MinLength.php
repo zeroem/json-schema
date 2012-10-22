@@ -4,11 +4,9 @@ namespace Zeroem\JsonSchema\Constraint\Value;
 
 use Zeroem\JsonSchema\Constraint\ConstraintInterface;
 
-class MinLength extends ValueConstraint
+class MinLength extends StringConstraint
 {
-    public function checkConstraint($data) {
-        assert(is_string($data));
-
+    protected function checkStringConstraint($data) {
         return strlen($data) >= $this->getValue();
     }
 }

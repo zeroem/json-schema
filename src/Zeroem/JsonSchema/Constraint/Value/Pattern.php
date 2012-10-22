@@ -4,11 +4,9 @@ namespace Zeroem\JsonSchema\Constraint\Value;
 
 use Zeroem\JsonSchema\Constraint\ConstraintInterface;
 
-class Pattern extends ValueConstraint
+class Pattern extends StringConstraint
 {
-    public function checkConstraint($data) {
-        assert(is_string($data));
-
+    protected function checkStringConstraint($data) {
         return preg_match($this->getValue(), $data) === 1;
     }
 }
