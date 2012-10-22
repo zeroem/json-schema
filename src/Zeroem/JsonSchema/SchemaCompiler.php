@@ -73,8 +73,18 @@ class SchemaCompiler
     }
 
     private function getSchema($schema) {
-        return $this->compile(
-            $this->schemaResolver->resolveSchema($schema)
-        );
+        return $this->schemaResolver->resolveSchema($schema)
+    }
+
+    public function getTypeResolver() {
+        return $this->typeResolver;
+    }
+
+    public function getSchemaResolver() {
+        return $this->schemaResolver;
+    }
+
+    public function getValueConstraintBuilder() {
+        return $this->valueConstraintBuilder;
     }
 }
