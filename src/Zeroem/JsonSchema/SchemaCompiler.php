@@ -19,7 +19,7 @@ class SchemaCompiler
     public function __construct(
         TypeResolverInterface $typeResolver,
         ValueConstraintBuilder $valueConstraintBuilder,
-        SchemaResolverInterface $schemaResolver=null,
+        SchemaResolverInterface $schemaResolver=null
     ) {
         $this->typeResolver = $typeFactory;
         $this->valueConstraintBuilder = $valueConstraintBuilder;

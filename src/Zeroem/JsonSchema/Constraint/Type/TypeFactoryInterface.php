@@ -2,7 +2,7 @@
 
 namespace Zeroem\JsonSchema\Constraint\Type;
 
-class TypeFactoryInterface
+interface TypeFactoryInterface
 {
     /**
      * Retrieve the type object associated with the give key

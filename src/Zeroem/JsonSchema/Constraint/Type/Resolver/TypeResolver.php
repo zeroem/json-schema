@@ -25,7 +25,7 @@ class TypeResolver implements TypeResolverInterface
 
             $union = new UnionType;
             foreach($type as $subType) {
-                $union->addType($this->resolveType($subType, true))
+                $union->addType($this->resolveType($subType, true));
             }
 
             return $union;
