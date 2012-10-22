@@ -4,11 +4,9 @@ namespace Zeroem\JsonSchema\Constraint\Value;
 
 use Zeroem\JsonSchema\Constraint\ConstraintInterface;
 
-class Minimum extends ValueConstraint
+class Minimum extends NumericConstraint
 {
-    public function checkConstraint($data) {
-        assert(is_int($data) || is_float($data));
-
+    protected function checkNumericConstraint($data) {
         return $data >= $this->getValue();
     }
 }

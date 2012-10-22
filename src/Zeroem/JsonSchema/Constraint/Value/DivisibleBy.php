@@ -4,11 +4,9 @@ namespace Zeroem\JsonSchema\Constraint\Value;
 
 use Zeroem\JsonSchema\Constraint\ConstraintInterface;
 
-class DivisibleBy extends ValueConstraint
+class DivisibleBy extends NumericConstraint
 {
-    public function checkConstraint($data) {
-        assert(is_int($data) || is_float($data));
-
+    protected function checkNumericConstraint($data) {
         $result = $data / $this->getValue();
 
         return $result == (int)$result;
