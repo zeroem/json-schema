@@ -12,8 +12,6 @@ abstract class ValueConstraint implements ConstraintInterface
         $this->value = $value;
     }
 
-    abstract public function checkConstraint($data);
-
     public function getValue() {
         return $this->value;
     }
