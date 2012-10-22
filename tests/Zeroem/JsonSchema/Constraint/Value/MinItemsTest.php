@@ -6,7 +6,7 @@ use Zeroem\JsonSchema\Constraint\Value\MinItems;
 
 class MinItemsTest extends \PHPUnit_Framework_TestCase
 {
-    public function testRequiredPropertyExists() {
+    public function testConstraint() {
         $constraint = new MinItems(3);
         $this->assertTrue($constraint->checkConstraint(array(1,2,3)));
         $this->assertTrue($constraint->checkConstraint(array(1,2,3,4)));

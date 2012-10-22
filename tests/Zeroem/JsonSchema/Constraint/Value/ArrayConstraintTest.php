@@ -9,7 +9,7 @@ class ArrayConstraintTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider arrayTests 
      */
-    public function testRequiredPropertyExists($data, $called) {
+    public function testConstraint($data, $called) {
 
         $constraint = $this->getMockForAbstractClass(
             'Zeroem\JsonSchema\Constraint\Value\ArrayConstraint',

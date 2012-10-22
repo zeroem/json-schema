@@ -9,7 +9,7 @@ class NumericConstraintTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider numericTests
      */
-    public function testRequiredPropertyExists($data, $called) {
+    public function testConstraint($data, $called) {
 
         $constraint = $this->getMockForAbstractClass(
             'Zeroem\JsonSchema\Constraint\Value\NumericConstraint',
