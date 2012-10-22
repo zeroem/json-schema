@@ -2,7 +2,7 @@
 
 namespace Zeroem\JsonSchema\Constraint\Value;
 
-abstract class ArrayConstraint extends ValueConstraint 
+abstract class ArrayConstraint extends AbstractValueConstraint 
 {
     public function checkConstraint($data) {
         if(is_array($data)) {

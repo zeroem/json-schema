@@ -2,7 +2,7 @@
 
 namespace Zeroem\JsonSchema\Constraint\Value;
 
-abstract class NumericConstraint extends ValueConstraint 
+abstract class NumericConstraint extends AbstractValueConstraint 
 {
     public function checkConstraint($data) {
         if(is_int($data) || is_float($data)) {
