@@ -2,18 +2,32 @@
 
 namespace Zeroem\JsonSchema\Constraint;
 
+/**
+ * Apply a set of constraints to properties matching the given regex
+ */
 class PatternPropertyConstraint extends CompositeConstraint
 {
+    /**
+     * @var string regex
+     */
     private $pattern;
-    private $required;
-
     private $failedProperty;
 
+    /**
+     * @param string $pattern regular expression
+     */
     public function __construct($pattern) {
-        $this->pattern= $pattern;
-        $this->required = $required;
+        $this->pattern = $pattern;
     }
 
+    /**
+     * Check all properties with names matching the given regex
+     * against the schema described by the 'patternProperties' attribute
+     *
+     * @param mixed $data
+     *
+     * @return boolean
+     */
     public function checkConstraint($data) {
         assert(is_object($data));
 
@@ -27,6 +41,8 @@ class PatternPropertyConstraint extends CompositeConstraint
                 }
             }
         }
+
+        return true;
     }
 }
 
