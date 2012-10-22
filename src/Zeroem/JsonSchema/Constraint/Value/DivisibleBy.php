@@ -11,6 +11,6 @@ class DivisibleBy extends ValueConstraint
 
         $result = $data / $this->getValue();
 
-        return $result === (int)$result;
+        return $result == (int)$result;
     }
 }
