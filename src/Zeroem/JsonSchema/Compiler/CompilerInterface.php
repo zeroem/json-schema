@@ -1,5 +1,7 @@
 <?php
 
+namespace Zeroem\JsonSchema\Compiler;
+
 interface CompilerInterface
 {
     /**
