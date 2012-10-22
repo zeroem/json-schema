@@ -7,6 +7,7 @@ use Zeroem\JsonSchema\Compiler\CompilerRuleInterface;
 use Zeroem\JsonSchema\Constraint\CompositeConstraint;
 
 use Zeroem\JsonSchema\Constraint\Type\Resolver\TypeResolverInterface;
+use Zeroem\JsonSchema\Constraint\Value\ValueConstraintBuilder;
 use Zeroem\JsonSchema\Resolver\SchemaResolverInterface;
 
 class Compiler implements CompilerInterface
@@ -21,8 +22,7 @@ class Compiler implements CompilerInterface
     }
     
     public function compile($schema) {
-        assert(is_object($schema));
-
+        $schema = $this->schemaResolver->resolveSchema($schema);
         $constraints = new CompositeConstraint;
 
         foreach($this->rules as $rule) {
@@ -56,14 +56,19 @@ class Compiler implements CompilerInterface
         $this->schemaResolver = $resolver;
         return $this;
     }
-    public static function buildCompiler() {
-        $compiler = new Compiler;
+
+    public static function buildCompiler(
+        SchemaResolverInterface $schemaResolver,
+        TypeResolverInterface $typeResolver,
+        ValueConstraintBuilder $builder
+    ) {
+        $compiler = new Compiler($schemaResolver, $typeResolver);
 
         $compiler
             ->addRule(new TypeCompilerRule)
             ->addRule(new DisallowCompilerRule)
             ->addRule(new PatternPropertiesCompilerRule)
             ->addRule(new PropertiesCompilerRule)
-            ->addRule(new ValueConstraintsCompilerRule);
+            ->addRule(new ValueConstraintsCompilerRule($builder));
     }
 }
