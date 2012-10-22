@@ -25,32 +25,34 @@ class SchemaCompiler
         if(property_exists($schema, 'type')) {
 
             // what do we do if a custom type doesn't exist?
-            $constraint->addConstraint($this->getTypeConstraint($schema->type));
+            $constraint->addConstraint($this->typeResolver->resolveType($schema->type));
+        }
 
-            if(property_exists($schema, 'properties')) {
-                foreach($schema->properties as $name=>$childSchema) {
-                    if ( isset($childSchema->required) ) {
-                        $required = $childSchema->required;
-                    } else {
-                        $required = false;
-                    }
+        if(property_exists($schema, 'disallow')) {
+            $constraint->addConstraint(new InverseConstraint($this->typeResolver->resolveType($schema->type)));
+        }
 
-                    $propertyConstraint = new PropertyConstraint($name, $required);
-                    $propertyConstraint->addConstraint($this->getSchema($childSchema));
-                    $this->constraint->addConstraint($propertyConstraint);
+        if(property_exists($schema, 'properties')) {
+            foreach($schema->properties as $name=>$childSchema) {
+                if ( isset($childSchema->required) ) {
+                    $required = $childSchema->required;
+                } else {
+                    $required = false;
                 }
-            }
 
-            if(property_exists($schema, 'patternProperties')) {
-                foreach($schema->patternProperties as $pattern=>$childSchema) {
-                    $patternConstraint = new PatternPropertyConstraint($pattern);
-                    $patternConstraint->addConstraint($this->getSchema($childSchema));
-
-                    $this->constraint->addConstraint($patternConstraint);
-                }
+                $propertyConstraint = new PropertyConstraint($name, $required);
+                $propertyConstraint->addConstraint($this->getSchema($childSchema));
+                $this->constraint->addConstraint($propertyConstraint);
             }
-        } else {
-            throw new InvalidSchemaException('Missing "type" property.'); 
+        }
+
+        if(property_exists($schema, 'patternProperties')) {
+            foreach($schema->patternProperties as $pattern=>$childSchema) {
+                $patternConstraint = new PatternPropertyConstraint($pattern);
+                $patternConstraint->addConstraint($this->getSchema($childSchema));
+
+                $this->constraint->addConstraint($patternConstraint);
+            }
         }
     }
 
