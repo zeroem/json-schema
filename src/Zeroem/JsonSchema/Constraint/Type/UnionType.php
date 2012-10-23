@@ -4,7 +4,7 @@ namespace Zeroem\JsonSchema\Constraint\Type;
 
 use Zeroem\JsonSchema\Constraint\ConstraintInterface;
 
-class UnionType implements ConstraintInterface
+class UnionType implements TypeConstraintInterface
 {
     private $types = array();
     private $match = false;
