@@ -5,3 +5,7 @@
   - Cache compiled object graphs as serialized to files/memcache
   - Investigate compiling the object graph into procedural PHP code
   - Implement "unique" constraints, eg uniqueItems, enum, etc.
+  - Implement Schema Resolver
+  - Implement dot/slash delimited fragement resolution
+  - Implement $ref/$schema attributes
+  - Figure out how to fill in default attributes
