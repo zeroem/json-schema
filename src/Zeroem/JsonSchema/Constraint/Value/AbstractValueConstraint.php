@@ -4,7 +4,7 @@ namespace Zeroem\JsonSchema\Constraint\Value;
 
 use Zeroem\JsonSchema\Constraint\ConstraintInterface;
 
-abstract class AbstractValueConstraint implements ConstraintInterface
+abstract class AbstractValueConstraint implements ValueConstraintInterface
 {
     private $value;
 
