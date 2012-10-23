@@ -6,7 +6,7 @@ use Zeroem\JsonSchema\Compiler\PropertiesCompilerRule;
 
 class PropertyCompilerRuleTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDerp() {
+    public function testCompileRule() {
         $compiler = $this->getMockForAbstractClass('Zeroem\JsonSchema\Compiler\CompilerInterface');
         $constraint = $this->getMockForAbstractClass('Zeroem\JsonSchema\Constraint\ConstraintInterface');
         $schemaResolver = $this->getMockForAbstractClass('Zeroem\JsonSchema\Resolver\SchemaResolverInterface');
