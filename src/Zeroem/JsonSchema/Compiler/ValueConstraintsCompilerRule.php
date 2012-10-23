@@ -14,7 +14,7 @@ class ValueConstraintsCompilerRule implements CompilerRuleInterface
         $this->constraintBuilder = $builder;
     }
 
-    public function canApply() {
+    public function canApply($data) {
         return true;
     }
 

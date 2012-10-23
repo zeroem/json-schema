@@ -29,4 +29,20 @@ class TypeFactory implements TypeFactoryInterface
     public function getType($key) {
         return new $this->types[$key];
     }
+
+    public static function buildTypeFactory() {
+        return new TypeFactory(
+            array(
+                "#"=>'Zeroem\JsonSchema\Constraint\Type\AnyType',
+                "any"=>'Zeroem\JsonSchema\Constraint\Type\AnyType',
+                "array"=>'Zeroem\JsonSchema\Constraint\Type\ArrayType',
+                "boolean"=>'Zeroem\JsonSchema\Constraint\Type\BooleanType',
+                "integer"=>'Zeroem\JsonSchema\Constraint\Type\IntegerType',
+                "null"=>'Zeroem\JsonSchema\Constraint\Type\NullType',
+                "number"=>'Zeroem\JsonSchema\Constraint\Type\NumberType',
+                "object"=>'Zeroem\JsonSchema\Constraint\Type\ObjectType',
+                "string"=>'Zeroem\JsonSchema\Constraint\Type\StringType'
+            )
+        );
+    }
 }

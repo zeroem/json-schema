@@ -70,5 +70,7 @@ class Compiler implements CompilerInterface
             ->addRule(new PatternPropertiesCompilerRule)
             ->addRule(new PropertiesCompilerRule)
             ->addRule(new ValueConstraintsCompilerRule($builder));
+
+        return $compiler;
     }
 }

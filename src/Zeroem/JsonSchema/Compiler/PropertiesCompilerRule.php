@@ -13,10 +13,10 @@ class PropertiesCompilerRule extends AbstractPropertyBasedRule
         parent::__construct('properties');
     }
 
-    public function compileRule($properties, CompilerInterface $compiler) {
+    public function compileRule($data, CompilerInterface $compiler) {
         $constraint = new CompositeConstraint;
 
-        foreach($properties as $name=>$childSchema) {
+        foreach($data->properties as $name=>$childSchema) {
             $childSchema = $compiler->getSchemaResolver()->resolveSchema($childSchema);
 
             if ( isset($childSchema->required) ) {
@@ -26,6 +26,7 @@ class PropertiesCompilerRule extends AbstractPropertyBasedRule
             }
 
             $propertyConstraint = new PropertyConstraint($name, $required);
+
             $propertyConstraint->addConstraint($compiler->compile($childSchema));
             $constraint->addConstraint($propertyConstraint);
         }

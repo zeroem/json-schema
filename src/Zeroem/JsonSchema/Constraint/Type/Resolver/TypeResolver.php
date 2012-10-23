@@ -5,6 +5,7 @@ namespace Zeroem\JsonSchema\Constraint\Type\Resolver;
 use Zeroem\JsonSchema\Constraint\Type\TypeFactoryInterface;
 use Zeroem\JsonSchema\Exception\InvalidSchemaException;
 use Zeroem\JsonSchema\Constraint\Type\AnyType;
+use Zeroem\JsonSchema\Constraint\Type\UnionType;
 
 class TypeResolver implements TypeResolverInterface
 {
@@ -12,7 +13,7 @@ class TypeResolver implements TypeResolverInterface
     private $throw;
 
     public function __construct(TypeFactoryInterface $typeFactory, $throw=false) {
-        $this->typeFactoryInterface = $typeFactory;
+        $this->typeFactory = $typeFactory;
         $this->throw = $throw;
     }
 
@@ -30,7 +31,7 @@ class TypeResolver implements TypeResolverInterface
 
             return $union;
         } else {
-            $result = $this->typeFactory->getType($schema->type);
+            $result = $this->typeFactory->getType($type);
 
             if(is_null($result) && !$throw) {
                 $result = new AnyType;
