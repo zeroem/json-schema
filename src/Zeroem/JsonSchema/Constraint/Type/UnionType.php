@@ -30,4 +30,8 @@ class UnionType implements TypeConstraintInterface
 
         $this->types[] = $type;
     }
+
+    public function getTypes() {
+        return $this->types;
+    }
 }

@@ -21,5 +21,9 @@ class PropertyConstraint extends CompositeConstraint
             return !$this->required;
         }
     }
+
+    public function getName() {
+        return $this->name;
+    }
 }
 
