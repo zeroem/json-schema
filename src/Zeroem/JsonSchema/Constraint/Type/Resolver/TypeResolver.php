@@ -33,8 +33,12 @@ class TypeResolver implements TypeResolverInterface
         } else {
             $result = $this->typeFactory->getType($type);
 
-            if(is_null($result) && !$throw) {
-                $result = new AnyType;
+            if(is_null($result)) {
+              if(!$throw) {
+                  $result = new AnyType;
+                } else {
+                    throw new InvalidSchemaException(sprintf('Unsupported type, `%s`', $type));
+                }
             }
 
             return $result;
